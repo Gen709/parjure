@@ -14,3 +14,4 @@ class Library(models.Model):
     rgt = models.IntegerField()
     item = models.TextField()
     desc = models.ForeignKey(TypeDocument, on_delete=models.SET_NULL, null=True)
+    is_true = models.BooleanField(null=True)
