@@ -10,3 +10,4 @@ class PhotosLibrary(models.Model):
     caption = models.CharField(max_length=100, blank=True, null=True)
     group = models.CharField(max_length=100, blank=True, null=True)
     headline=models.CharField(max_length=100, blank=True, null=True)
+    text=models.CharField(max_length=100, blank=True, null=True)

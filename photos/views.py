@@ -18,6 +18,11 @@ def get_json_pictures(request):
             caption=": "+p.caption
         else:
             caption=""
+        # if p.headline:
+        #     headline=p.headline
+        # else:
+        #     headline=""
+
         events.append({'start_date': {'year': p.date.year,
                                       'month': p.date.month,
                                       'day': p.date.day,
@@ -28,8 +33,8 @@ def get_json_pictures(request):
                        'media': {"url": p.file.url,
                                  "caption": dt.strftime(p.date, "%Y-%m-%d")+caption,
                                  "group":dt.strftime(p.date, "%Y-%m-%d")},
-                       'text': {"headline": "",
-                                "text":""}
+                       'text': {"headline":"",
+                                "text":p.headline}
                        })
 
     events.append({'start_date': {'year': 2013,
