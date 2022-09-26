@@ -7,4 +7,5 @@ class PhotosLibrary(models.Model):
     # pass
     date = models.DateTimeField()
     file = models.ImageField(upload_to='images/', blank=True, null=True)
-    caption = models.TextField(blank=True, null=True)
+    caption = models.CharField(max_length=100, blank=True, null=True)
+    group = models.CharField(max_length=100, blank=True, null=True)
