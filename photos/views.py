@@ -2,18 +2,22 @@
 from django.http.response import JsonResponse, HttpResponse
 from .models import PhotosLibrary
 
-from datetime import date as dt
+from datetime import datetime as dt
 
 # Create your views here.
 
 
 def get_json_pictures(request):
-    photo_list = PhotosLibrary.objects.filter(date__range=["2013-01-01", "2013-12-31"])
+    photo_list = PhotosLibrary.objects.filter(date__range=["2013-05-01", "2013-09-21"])
     data_dict = {}
     # data_dict["title"] = {"text": { "headline": "Parjure <br/> Élise Ayoub", "text": "<p>Le 25 septembre,
     # Élise Ayoub a commis un parjure afin d'obtenir la garde exclusive de ses enfants.</p>" } }
     events = []
     for p in photo_list:
+        if p.caption:
+            caption=": "+p.caption
+        else:
+            caption=""
         events.append({'start_date': {'year': p.date.year,
                                       'month': p.date.month,
                                       'day': p.date.day,
@@ -22,13 +26,15 @@ def get_json_pictures(request):
                                       'second': p.date.second
                                       },
                        'media': {"url": p.file.url,
-                                 "caption": "Caption of the picture"
-                                 }
+                                 "caption": dt.strftime(p.date, "%Y-%m-%d")+caption,
+                                 "group":dt.strftime(p.date, "%Y-%m-%d")},
+                       'text': {"headline": "",
+                                "text":""}
                        })
 
     events.append({'start_date': {'year': 2013,
-                                  'month': 6,
-                                  'day': 21,
+                                  'month': 5,
+                                  'day': 1,
                                   },
                    'end_date': {'year': 2013,
                                    'month': 9,
