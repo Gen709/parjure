@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>test</h1>
+    <form action="timelinejs-event-add" method="post" class="form">
+        {% csrf_token %}
+        <div class="row border">
+            {% bootstrap_form event_form %}
+        </div>
+        <div class="row mt-3">
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">add slide</button>
+            {% endbuttons %}
+        </div>
+    </form>
+
+{% endblock %}

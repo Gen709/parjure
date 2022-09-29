@@ -37,7 +37,7 @@ class Era(models.Model):
 
 
 class Events(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     scale = models.CharField(max_length=100, default="human")
     events = models.ManyToManyField(Slide)
     era = models.ManyToManyField(Era)
