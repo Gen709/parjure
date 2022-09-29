@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    {{p}}
+    <h1>Slide</h1>
+    <form action="{% url 'timelinejs-slide-add' %}" method="post" class="form">
+        {% csrf_token %}
+        <div class="row border mt-3">
+            {% bootstrap_form slide_form %}
+        </div>
+
+        <div class="row">
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" name="add_text">add text</button>
+                <button type="submit" class="btn btn-primary" name="add_media">add media</button>
+            {% endbuttons %}
+        </div>
+    </form>
+
+{% endblock %}

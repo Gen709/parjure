@@ -7,17 +7,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>test</h1>
-    <form action="{% url 'timelinejs-event-add' %}" method="post" class="form">
+    <h1>Text</h1>
+    <form action="{% url 'timelinejs-text-add' %}" method="post" class="form">
         {% csrf_token %}
         <div class="row border">
-            {% bootstrap_form event_form %}
+            {% bootstrap_form text_form %}
         </div>
         <div class="row mt-3">
             {% buttons %}
                 <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-primary" name="add_slide">add slide</button>
-                <button type="submit" class="btn btn-primary" name="add_era">add era</button>
+                <button type="submit" class="btn btn-primary" name="add_slide">add new slide</button>
+                <button type="submit" class="btn btn-primary" name="add_media">add media</button>
             {% endbuttons %}
         </div>
     </form>
