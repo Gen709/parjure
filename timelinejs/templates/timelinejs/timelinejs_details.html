@@ -2,15 +2,126 @@
 {% load static %}
 {% load bootstrap5 %}
 
-{% block js %}
+{% block extrahead %}
+<link title="timeline-styles" rel="stylesheet"
+              href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+{% endblock %}
 
+{% block js %}
+<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+<script src="{% static 'timelinejs/js/timeline_js.js' %}"> </script>
 {% endblock %}
 
 {% block content %}
-    <h1>Timeline list</h1>
-        {% for timeline in timelinejs_qs %}
-<a href="{{timeline.get_absolute_url}}">{{ timeline.title.start_date }} {{ timeline.title.end_date }} {{ timeline.title.text.headline }}</a>
-        {% endfor %}
+    <div class="container-fluid">
+        <div class="row timelinejs-container" id="{{timelinejs.id}}">
+            <div class="row border rounded">
+<!--                <h1>Timeline detail</h1>-->
+                {% if timelinejs.title.text %}
+                    <h1>{{ timelinejs.title.text.headline }}</h1>
+                    <h4>{{ timelinejs.title.text.text }}</h4>
+                    <a href="{% url 'update-text-to-the-event-title-slide' timelinejs.title.text.id %}"> Update timeline title </a>
+                {% else %}
+                    The timeline has no Title
+                    <a href="{% url 'add-text-to-the-event-title-slide' timelinejs_qs.title.id %}"> add timeline title </a>
+                {% endif %}
+                <p>Start date : {{timelinejs.title.start_date}}</p>
+                <p>End date : {{timelinejs.title.end_date}}</p>
+
+            </div>
+
+            <div class="row mt-5 border rounded">
+                <div class="row mt-3">
+                    <div class="col">
+                        <h2>List of Slides</h2>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{% url 'add-new-slide-to-timeline-events' timelinejs.id %}" class="btn btn-primary"> Add a new </a>
+                    </div>
+                </div>
+                {% if timelinejs.get_events %}
+                    {% for event in timelinejs.get_events %}
+
+                        <div class="card mx-2 mt-3" id="{{ event.id }}" style="width: 18rem;">
+                            {% if event.media %}
+                                <div class="row">
+                                    <img src="{{ event.media.url }}" class="card-img-top" alt="...">
+                                </div>
+                                <div class="row">
+                                    <p class="card-text">Caption: {{ event.media.caption }}</p>
+                                    <p class="card-text">Credit: {{ event.media.credit }}</p>
+                                </div>
+                                <div class="row">
+                                    <a href="{% url 'update-media-of-event-slide' event.media.id %}" class="btn btn-primary">Update media</a>
+                                </div>
+                                <div class="row">
+                                    <a href="{% url 'delete-media' event.media.id %}" class="btn btn-danger">Delete media</a>
+                                </div>
+                            {% else %}
+                                <div class="row">
+                                    <a href="{% url 'add-media-to-event-slide' event.id %}" class="btn btn-primary">Ajouter un media</a>
+                                </div>
+                            {% endif %}
+
+                            <div class="card-body">
+                                {% if event.text %}
+                                    <h5 class="card-title"> {{ event.text.headline }}</h5>
+                                    <p class="card-text"> {{ event.text.text }}</p>
+                                    <a href="{% url 'update-text-of-event-slide' event.text.id %}" class="btn btn-primary">Update Slide text </a>
+                                {% else %}
+                                    <a href="{% url 'add-text-to-event-slide' event.id %}">Ajouter du text </a>
+                                {% endif %}
+
+                                <p class="card-text">From:{{ event.start_date }}</p>
+                                <p class="card-text">To:{{ event.start_date }}</p>
+                                <a href="{% url 'update-slide-event' event.id %}" class="btn btn-primary"> Update event slide dates </a>
+                                <div class="row">
+                                    <a href="{% url 'delete-slide' event.id %}" class="btn btn-danger"> Delete event slide </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+
+                {% else %}
+                    <h4> This timeline has no Events associated with it  </h4>
+                    <a href="{% url 'add-new-slide-to-timeline-events' timelinejs.id %}">Add a new event to the timeline </a>
+                {% endif %}
+            </div>
+
+            <div class="row mt-5 border rounded">
+                <div class="row mt-3">
+                    <div class="col">
+                        <h2>List of Eras</h2>
+                    </div>
+                    <div class="col-sm-3">
+                        <a href="{% url 'era-add' timelinejs.id %}" class="btn btn-primary"> Add a new </a>
+                    </div>
+                </div>
+
+                {% if timelinejs.events.all %}
+                    {% for era in timelinejs.get_era %}
+
+                        {{ era.start_date }}
+                        {{ era.end_date }}
+                        {{ era.text.headline }}
+                        {{ era.text.text }}
+
+                    {% endfor %}
+                {% else %}
+
+                {% endif %}
+            </div>
+
+
+            <div class="row border rounded mt-4">
+                <div id='timeline-embed' style="width: 100%; height: 400px"></div>
+            </div>
+
+        </div>
+    </div>
+
+
 
 
 {% endblock %}

@@ -9,14 +9,39 @@
 {% block content %}
     <h1>Slide Form</h1>
     <div class="col">
-        You're about to add a slide to: {{ event. }}
+        You're about to Modify a slide to: {{ slide. }}
     </div>
-    <form action="{% url 'timelinejs-slide-add' %}" method="post" class="form">
+    <div class="card mx-2 mt-3" id="{{ slide.id }}" style="width: 18rem;">
+        {% if slide.media %}
+            <img src="{{ slide.media.url }}" class="card-img-top" alt="...">
+            <p class="card-text">Caption: {{ slide.media.caption }}</p>
+            <p class="card-text">Credit: {{ slide.media.credit }}</p>
+
+        {% else %}
+
+        {% endif %}
+
+        <div class="card-body">
+            {% if slide.text %}
+                <h5 class="card-title"> {{ slide.text.headline }}</h5>
+                <p class="card-text"> {{ slide.text.text }}</p>
+
+            {% else %}
+
+            {% endif %}
+
+            <p class="card-text">From:{{ slide.start_date }}</p>
+            <p class="card-text">To:{{ slide.start_date }}</p>
+
+
+        </div>
+    </div>
+    <form action="{% url 'update-slide-event' %}" method="post" class="form">
         {% csrf_token %}
         <div class="row border mt-3">
             {% bootstrap_form slide_form %}
         </div>
-        <input type="hidden" name="parent_id" value="{{parent_id}}">
+        <input type="hidden" name="slide_id" value="{{slide_id}}">
         <div class="row">
             {% buttons %}
                 <button type="submit" class="btn btn-primary">Submit</button>

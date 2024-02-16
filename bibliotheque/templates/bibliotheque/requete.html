@@ -14,13 +14,13 @@
 {% block js %}
 
 <script src="https://cdn.tiny.cloud/1/3uxow28ssthmenpgxa54gwbtdj7mdpjqzi8sprt26xpv0dcz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="{% static 'bibliotheque/js/hoover_menu.js' %}"> </script>
+<!--<script src="{% static 'bibliotheque/js/hoover_menu.js' %}"> </script>-->
 
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row mb-5">
+        <div class="row">
             <!-- colone de gauche  -->
             <div class="col-md-2">
 
@@ -30,11 +30,11 @@
             </div>
             <!-- contenu -->
             <div class="col">
-                <div class="row px-3 mt-5 mb-5 pb-3 title fixed-top">
+                <div class="row px-3 pb-3 title">
                     <h1>{{item.item|capfirst}}</h1>
                 </div>
 
-                <div class="row requete-body mt-5">
+                <div class="row">
 
                 {% for dic in document %}
 
@@ -49,7 +49,7 @@
                             {% endif%}
 
                                 {% if dic.depth == 1 and not dic.document_item_obj.is_true %}
-                                    <a href=""> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
+                                    <a href="{% url 'rebuttal' dic.document_item_obj.id %}"> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
                                 {% else %}
                                     <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
                                 {% endif %}
@@ -65,7 +65,7 @@
                             {% endif%}
 
                             {% if dic.depth == 1 and dic.document_item_obj.is_true == False %}
-                                <a href=""> {{dic.requete_number}}) {{dict_.requete_number}}{{ dic.document_item_obj.get_item_free_of_html }}</a>
+                                <a href="{% url 'rebuttal' dic.document_item_obj.id %}"> {{dic.requete_number}}) {{dict_.requete_number}}{{ dic.document_item_obj.get_item_free_of_html }}</a>
                             {% else %}
                                     <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
                             {% endif %}
@@ -81,7 +81,7 @@
                                 {% endif%}
 
                                     {% if dic.depth == 1 and dic.document_item_obj.is_true is False %}
-                                        <a href=""> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
+                                        <a href="{% url 'rebuttal' dic.document_item_obj.id %}"> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
                                     {% else %}
                                         <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
                                     {% endif %}

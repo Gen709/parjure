@@ -10,19 +10,21 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
-                <h1>Photos list</h1>
+                <h1>Album list -</h1>
             </div>
             
             <div class="row">
-                {% for photo in photo_list%}
+                {% for album in album_list %}
                     <div class="card mt-3 mx-2" style="width: 18rem;">
-                        <img class="card-img-top" src="#" alt="Card image cap">
+
                         <div class="card-body">
-                            <h5 class="card-title">{{photo.title}}</h5>
-                            <p>{{photo.date_taken}}</p>
-                            <p class="card-text">{{photo.desc}}</p>
-<!--                            <a href="{% url 'flicker-update-view' photo.id %}" class="btn btn-primary">Update</a>-->
-                            <a href="{% url 'flicker-update-function-view' photo.id %}" class="btn btn-primary">Update</a>
+                            <h5 class="card-title">{{album.name}}</h5>
+
+                            <p class="card-text">{{album.desc}}</p>
+                            <p class="card-text">{{photo.link_to_original_photo}}</p>
+                            <a href="{% url 'album-update-view' album.id %}" class="btn btn-primary">Edit</a>
+                            <a href="{% url 'album-detail-view' album.id %}" class="btn btn-success">View</a>
+                            <a href="{% url 'album-delete-view' album.id %}" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
                 {% endfor %}

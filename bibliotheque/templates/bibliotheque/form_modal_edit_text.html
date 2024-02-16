@@ -1,40 +1,33 @@
+
 <!-- Modal -->
-<div class="modal fade" id="addExplainationeModal" tabindex="-1" aria-labelledby="addExplainationeModalLabel" aria-hidden="true">
+<div class="modal fade" id="editFalseAllegationModal" tabindex="-1" aria-labelledby="editFalseAllegationModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addExplainationeModalLabel">Insert as a child</h5>
+                <h5 class="modal-title" id="editFalseAllegationModalLabel">Modifier le Text</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Anuler"></button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="form-group">
-                            <label for="selected-allegation"> Allégation à commenter</label>
-                            <select class="form-control" id="selected-allegation">
-                                {% for dic in document.get_tree %}
-                                    {% if dic.document_item_obj.is_true == 0 %}
-                                    <option name ="related_allegation_id" value="{{ dic.document_item_obj.id }}">
-                                        {{ dic.document_item_obj.item }}
-                                    </option>
-                                    {% endif %}
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="form-group">
-                            <textarea class="inline_textarea_explanation" id="explanation">
+<!--            <form method="post" action="{% url 'bibliotheque-text-update' %}">-->
+            <form method="post" action="{% url 'add-as-child' %}" id="main_form">
+                {% csrf_token %}
+                
+                <input type="hidden" name="parent_id" value="#">
 
-                            </textarea>
+                <div class="modal-body">
+                <!--     contenu       -->
+                        <div class="row mt-4">
+                            <div class="form-group inline_textarea_explanation"></div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Soumettre</button>
-            </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-edit-text-modal" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                    <a href="#" class="btn btn-danger">Delete</a>
+                </div>
+
+            </form>
+
         </div>
     </div>
 </div>

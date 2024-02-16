@@ -4,15 +4,25 @@
 
 {% block content %}
 
-<form method="post" action="{% url 'bibliotheque-section-add-2' parent_id %}">
+<div class="row border rounded px-3 mt-5 pt-3">
+
+    {% for item in parent.get_path %}
+        <ul >
+            <li>{{ item.item|safe }}</li>
+    {% endfor %}
+    {% for item in parent.get_path %}
+        </ul>
+    {% endfor %}
+</div>
+<form method="post" action="{% url 'bibliotheque-counterpoint-add' parent.id %}">
     {% csrf_token %}
 
     <div class="row border rounded mt-4">
         {% bootstrap_form item_form %}
+        {{ item_form.errors }}
     </div>
-    <div class="row border rounded mt-4">
-        {% bootstrap_form text_form %}
-    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
 
 {% endblock %}

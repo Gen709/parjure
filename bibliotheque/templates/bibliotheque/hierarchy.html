@@ -6,7 +6,7 @@
 {% block extrahead %}
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<link rel="stylesheet" href="{% static 'bibliotheque/css/requete.css' %}" />
+<link rel="stylesheet" href="{% static 'bibliotheque/css/hier.css' %}" />
 
 {% endblock %}
 
@@ -14,13 +14,13 @@
 {% block js %}
 
 <script src="https://cdn.tiny.cloud/1/3uxow28ssthmenpgxa54gwbtdj7mdpjqzi8sprt26xpv0dcz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script src="{% static 'bibliotheque/js/hoover_menu.js' %}"> </script>
+<script src="{% static 'bibliotheque/js/hierarchy_edit.js' %}"> </script>
 
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <div class="row mb-5">
+        <div class="row mt-5 mb-5">
             <!-- colone de gauche  -->
             <div class="col-md-2">
 
@@ -30,46 +30,43 @@
             </div>
             <!-- contenu -->
             <div class="col">
-                {% for dic in document.get_tree %}
-                    {% if dic.depth == 0 %}
-                        <div class="row border-bottom mb-5">
-                            <h4>{{ dic.document_item_obj.item|capfirst }}</h4>
-                        </div>
-                    {% else %}
-                        {% if dic.document_item_obj.is_true %}
-                            <div class="row mt-3 true-statements">
-                                <div class="col-sm-1 ">
-                                    {{ dic.document_item_obj.id }}.
-                                </div>
-                                <div class="col">
-                                    {{ dic.document_item_obj.item|safe }}
-                                </div>
-                                <div class="col-sm-1">
-                                    {{ dic.depth }}
-                                </div>
-                            </div>
-                        {% else %}
-                            <div class="row mt-3 false-statements" id="{{ dic.document_item_obj.id }}">
+                <ol type="a" id="list_1">
+                    {% for dic in tree %}
 
-                                <div class="col-sm-1">
-                                    {{ dic.document_item_obj.id }}.
-                                </div>
-                                <div class="col false-statement-text">
-                                    <a href="{% url 'bibliotheque-requete-allegation' dic.document_item_obj.id %}">
-                                        {{ dic.document_item_obj.item|safe }}
-                                    </a>
-                                </div>
-                                <div class="col-sm-1">
-                                    {{ dic.depth }}
-                                </div>
+                        {% if dic.previous_depth > dic.depth %}
+                            {% for x in dic.range %}
+                                </ol>
+                            {% endfor %}
 
-                                <div class="menu-box"></div>
+                            {% if dic.document_item_obj.is_true %}
+                                <li class="true-statements" id="{{dic.document_item_obj.id}}">
+                            {% else %}
+                                <li class="false-statements" id="{{dic.document_item_obj.id}}">
+                            {% endif%}
+                                {{ dic.document_item_obj.desc.desc}} id: {{ dic.document_item_obj.id }} parent: {{ dic.document_item_obj.parent }} range: {{ dic.document_item_obj.lft }} - {{ dic.document_item_obj.rgt }}
+                            </li>
 
-                            </div>
+                        {% elif dic.previous_depth == dic.depth %}
+                            {% if dic.document_item_obj.is_true %}
+                                <li class="true-statements" id="{{dic.document_item_obj.id}}">
+                            {% else %}
+                                <li class="false-statements" id="{{dic.document_item_obj.id}}">
+                            {% endif%}
+                                {{ dic.document_item_obj.desc.desc }} id: {{ dic.document_item_obj.id }} parent: {{ dic.document_item_obj.parent }} range: {{ dic.document_item_obj.lft }} - {{ dic.document_item_obj.rgt }}
+                            </li>
+
+                        {% elif dic.previous_depth < dic.depth %}
+                            <ol type="1" id="list_{{dic.document_item_obj.id}}">
+                                {% if dic.document_item_obj.is_true %}
+                                    <li class="true-statements" id="{{dic.document_item_obj.id}}">
+                                {% else %}
+                                    <li class="false-statements" id="{{dic.document_item_obj.id}}">
+                                {% endif%}
+                                        {{ dic.document_item_obj.desc.desc }} id: {{ dic.document_item_obj.id }} parent: {{ dic.document_item_obj.parent }} range: {{ dic.document_item_obj.lft }} - {{ dic.document_item_obj.rgt }}
+                                    </li>
                         {% endif %}
-                    {%endif%}
-                {%endfor%}
-
+                    {%endfor%}
+                </ol>
             </div>
             <!-- colone de droite -->
             <div class="col-md-1">
@@ -78,10 +75,4 @@
 
         </div>
     </div>
-
-    {% include 'bibliotheque/form_modal_explication.html' %}
-    {% include 'bibliotheque/form_modal_timeline.html' %}
-    {% include 'bibliotheque/form_modal_edit_text.html' %}
-    {% include 'bibliotheque/form_modal_allegation.html' %}
-
 {% endblock %}

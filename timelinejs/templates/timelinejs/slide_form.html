@@ -7,14 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    {{p}}
-    <h1>Slide</h1>
+    <h1>Slide Form</h1>
+    <div class="col">
+        You're about to add a slide to: {{ event. }}
+    </div>
     <form action="{% url 'timelinejs-slide-add' %}" method="post" class="form">
         {% csrf_token %}
         <div class="row border mt-3">
             {% bootstrap_form slide_form %}
         </div>
-
+        <input type="hidden" name="parent_id" value="{{parent_id}}">
         <div class="row">
             {% buttons %}
                 <button type="submit" class="btn btn-primary">Submit</button>

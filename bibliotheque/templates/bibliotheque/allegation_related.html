@@ -4,64 +4,103 @@
 
 {% block extrahead %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
+<link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+<link rel="stylesheet" href="{% static 'bibliotheque/css/allegation_related.css' %}" />
 {% endblock %}
+
 {% block js %}
-
+<script src="https://cdn.tiny.cloud/1/3uxow28ssthmenpgxa54gwbtdj7mdpjqzi8sprt26xpv0dcz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+<script src="{% static 'bibliotheque/js/hoover_menu.js' %}"> </script>
+<script src="{% static 'bibliotheque/js/timeline.js' %}"> </script>
 {% endblock %}
+
 {% block content %}
     <div class="container-fluid">
-        <div class="row">
-
-            <div class="col-md-2">
-                <div class="row h-100 border">
-
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="row">
-                    <form>
-                        {% csrf_token %}
-                        {% for data in tree %}
-                            {% if data.0 > 1 %}
-                                {% if data.4 == 1 %}
-                                    <div class="row mt-3 text-black-50">
-                                {% else %}
-                                    <div class="row mt-3">
-                                {% endif %}
-                                    {% if data.3 > 0 %}
-                                        <div class="row text-container">
-
-                                            <div class="col-sm-1">
-                                                {{ data.3 }}.
-                                            </div>
-                                            <div class="col" id="{{ data.0 }}">
-                                                <a href="{{data.0}}">{{ data.1|safe }}</a>
-                                            </div>
-                                        </div>
-                                        <div class="row option-menu justify-content-end">
-
-                                        </div>
-                                    {% else %}
-                                        <div class="col"><h3>{{ data.1|capfirst }}</h3></div>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                    </form>
-                </div>
-
-            </div>
-
-            <div class="col-md-1">
+       
+        <!--colonne de gauche-->
+        <div class="col-md-2">
+            <div class="row h-100">
 
             </div>
         </div>
-        <div class="row">
-            {% include 'photos/timeline_js.html' %}
+        <!--colonne du milieu-->
+        <div class="col px-5">
+            
+            {% comment %} entête {% endcomment %}
+            <div class="row allegations mb-5">
+                <ul>
+                {% for dic in allegation.get_tree %}
+                    {% if dic.document_item_obj.desc.id == 1 %}
+                        {% if dic.previous_depth > dic.depth %}
+                            {% for x in dic.range %}
+                                </ul>
+                            {% endfor %}
+                            <li>{{dic.document_item_obj.id}} {{ dic.document_item_obj.item|capfirst|safe }} {{dic.document_item_obj.lft}} {{dic.document_item_obj.rgt}}</li>
+                        {% elif dic.previous_depth == dic.depth %}
+                            <li>{{dic.document_item_obj.id}} {{ dic.document_item_obj.item|capfirst|safe }} {{dic.document_item_obj.lft}} {{dic.document_item_obj.rgt}}</li>
+                        {% elif dic.previous_depth < dic.depth %}
+                            <ul>
+                                <li>{{dic.document_item_obj.id}} {{ dic.document_item_obj.item|capfirst|safe }} {{dic.document_item_obj.lft}} {{dic.document_item_obj.rgt}}</li>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+
+            {% comment %}  section des contre-argument et timeline {% endcomment %}
+            <div class="row">
+                
+                {% for dic in allegation.get_related %}
+                    {% if dic.document_item_obj.desc.id == 2 %}
+                        <div class="row false-statements border rounded mt-4" id="{{ dic.document_item_obj.id }}">
+
+                            <div id="{{dic.document_item_obj.id}}_lft" data-lft="{{dic.document_item_obj.lft}}"></div>
+                            <div id="{{dic.document_item_obj.id}}_rgt" data-rgt="{{dic.document_item_obj.rgt}}"></div>
+                            <div id="{{dic.document_item_obj.id}}_desc" data-desc="{{dic.document_item_obj.desc.id}}"></div>
+
+                            <div class="row title mt-4 mb-3">
+                                <p>{{dic.document_item_obj.parent}} {{ dic.document_item_obj.item|capfirst|safe }} {{dic.document_item_obj.lft}} {{dic.document_item_obj.rgt}}</p>
+                            </div>
+                            {% comment %} <div class="row explanation mt-3 mb-3">
+                                <p>{{ dic.document_item_obj.text|capfirst|safe }}</p>
+                            </div> {% endcomment %}
+
+                            <div class="menu-box mb-3"></div>
+
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+
+
+                {% for dic in allegation.get_related %}
+                    {% if dic.document_item_obj.desc.id == 3 %}
+                        <div class="row false-statements mb-5" id="{{ dic.document_item_obj.id }}">
+                            <div id="{{dic.document_item_obj.id}}_lft" data-lft="{{dic.document_item_obj.lft}}"></div>
+                            <div id="{{dic.document_item_obj.id}}_rgt" data-rgt="{{dic.document_item_obj.rgt}}"></div>
+                            <div id="{{dic.document_item_obj.id}}_desc" data-desc="{{dic.document_item_obj.desc.id}}"></div>
+
+                            <div class="row mt-3 timeline" id="timeline_{{dic.document_item_obj.item}}" style="width: 100%; height: 600px">
+                                <h1>Timeline</h1>
+                            </div>
+                            <div class="menu-box"></div>
+                            <div class="row menu"></div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
         </div>
+        {% comment %} colone de droite {% endcomment %}
+        <div class="col-md-1">
+            
+        </div>
+
+        
     </div>
-    <img src="https://live.staticflickr.com/65535/52393299665_82ba29620d_h.jpg" alt="HTML tutorial" style="width:42px;height:42px;">
+{% include 'bibliotheque/form_modal_explication.html' %}
+{% include 'bibliotheque/form_modal_timeline.html' %}
+{% include 'bibliotheque/form_modal_edit_text.html' %}
 
 {% endblock %}

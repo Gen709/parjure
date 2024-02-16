@@ -13,17 +13,17 @@
         <div class="row border">
             <div class="card mx-2 mt-3" id="{{ object.id }}" style="width: 18rem;">
 
-                <img src="{{ event.media.url }}" class="card-img-top" alt="...">
-                <p class="card-text">Caption: {{ object.media.caption }}</p>
-                <p class="card-text">Credit: {{ object.media.credit }}</p>
+                <img src="{{ object.url }}" class="card-img-top" alt="...">
+                <p class="card-text">Caption: {{ object.caption }}</p>
+                <p class="card-text">Credit: {{ object.credit }}</p>
 
 
                 <div class="card-body">
 
-                    <h5 class="card-title"> {{ object.text.headline }}</h5>
-                    <p class="card-text"> {{ object.text.text }}</p>
-                    <p class="card-text">From:{{ object.start_date }}</p>
-                    <p class="card-text">To:{{ object.start_date }}</p>
+                    <h5 class="card-title"> {{ object.slide.text.headline }}</h5>
+                    <p class="card-text"> {{ object.slide.text.text }}</p>
+                    <p class="card-text">From:{{ object.slide.start_date }}</p>
+                    <p class="card-text">To:{{ object.slide.start_date }}</p>
 
                 </div>
             </div>

@@ -10,14 +10,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
-                <h1>Update</h1>
+                <h1>Create / Update</h1>
             </div>
-
             <div class="row">
-                <form method="post" action="{% url 'flicker-update-view' photo.id %}">
+                <div class="col-sm-6">
+                    <img src="{{photo.link_to_photo_thumbnail}}" alt="..." class="img-thumbnail">
+                </div>
+            </div>
+            <div class="row">
+                <form method="post" action="{% url 'flicker-update-function-view' pk %}">
                     {% csrf_token %}
-                    {{form.as_table}}
-                    <div class="btn btn-primary"> Update </div>
+                    {% bootstrap_form form %}
+                    <button class="btn btn-primary" type="submit"> Update </button>
+                    <button class="btn btn-primary"> Cancel </button>
                 </form>
 
             </div>

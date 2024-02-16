@@ -5,7 +5,7 @@
 {% block extrahead %}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
-<link rel="stylesheet" href="{% static 'bibliotheque/css/rebuttal.css' %}" />
+<link rel="stylesheet" href="{% static 'bibliotheque/css/rebuttal_reveal.css' %}" />
 {% endblock %}
 
 {% block js %}
@@ -18,21 +18,20 @@
 
 {% block content %}
     <div class="rebuttal-body">
+
         <section>
             <div class="container reveal">
                 <h2> {{allegation.item|safe}}</h2>
             </div>
         </section>
+
         {% for item in allegation.get_related %}
             {% if item.document_item_obj.desc.id != 3 and item.document_item_obj.id != allegation.id %}
-                <section>
 
+                <section>
                     <div class="container reveal">
                         <h2> {{item.document_item_obj.item|safe}}</h2>
-
                     </div>
-
-
                 </section>
 
             {% endif %}

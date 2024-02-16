@@ -10,19 +10,50 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
-                <h1>Photos list</h1>
+                <h1>Album Details</h1>
             </div>
             
             <div class="row">
-                {% for photo in photo_list%}
-                    <div class="card mt-3 mx-2" style="width: 18rem;">
-                        <img class="card-img-top" src="#" alt="Card image cap">
+                <h4>{{album.name}}</h4>
+            </div>
+            <div class="row">
+                <p>{{album.desc}}</p>
+            </div>
+            <div class="row">
+                {% for photo in album.photos.all %}
+                    <div class="card mt-5" style="width: 23rem;">
+                        <img src="{{photo.link_to_photo_thumbnail}}" class="card-img-top">
+                        <div class="card-header">
+                            <div class="row">
+                                {{photo.title}}
+                            </div>
+                            <div class="row">
+                                <button type="button" class="btn btn-success btn-sm"> Edit picture details </button>
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{photo.title}}</h5>
-                            <p>{{photo.date_taken}}</p>
-                            <p class="card-text">{{photo.desc}}</p>
-<!--                            <a href="{% url 'flicker-update-view' photo.id %}" class="btn btn-primary">Update</a>-->
-                            <a href="{% url 'flicker-update-function-view' photo.id %}" class="btn btn-primary">Update</a>
+                            <p class="card-text text-primary"> date : {{photo.date_taken}}</p>
+                            <p class="card-text text-muted">{{photo.desc}}</p>
+                            <div class="card-header">
+                                Appears in:
+                            </div>
+                            {% if photo.album_set.all %}
+                                <ul class="list-group list-group-flush">
+                                {% for album in photo.album_set.all %}
+                                    <li class="list-group-item">
+                                        {{ album }}
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="card-footer">
+                            <div>
+                                <a href="{{photo.link_to_original_photo}}" class="btn btn-primary">View</a>
+                            </div>
+                            <label for="id_photos_{{ forloop.counter0 }}">
+                                <input id="id_photos_{{ forloop.counter0 }}" type="checkbox" name="photos" value="{{photo.id}}" > Select
+                            </label>
                         </div>
                     </div>
                 {% endfor %}

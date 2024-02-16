@@ -13,14 +13,17 @@
                 <h1>Delete</h1>
             </div>
 
-            <div class="row">
-                <form method="post" action="{% url 'flicker-update-view' photo.id %}">
-                    {% csrf_token %}
-                    {{form.as_table}}
-                    <div class="btn btn-primary"> Update </div>
+
+                <form method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <p>Delete {{object}}</p>
+                        {% bootstrap_form form %}
+                        <input type="submit" value="Confirm" class="btn btn-danger">
+                    </div>
                 </form>
 
-            </div>
+
         </div>
     </div>
 {% endblock %}

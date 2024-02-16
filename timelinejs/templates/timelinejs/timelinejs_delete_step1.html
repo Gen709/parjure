@@ -7,19 +7,58 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Text</h1>
-    <form action="{% url 'timelinejs-text-add' %}" method="post" class="form">
-        {% csrf_token %}
-        <div class="row border">
-            {% bootstrap_form text_form %}
+    <form action="" method="POST">
+        {{ crfs_token }}
+        <div class="row">
+            <h1>{{ timeline_to_be_deleted.title.text.headline }}</h1>
         </div>
         <div class="row mt-3">
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-primary" name="add_slide">add new slide</button>
-                <button type="submit" class="btn btn-primary" name="add_media">add media</button>
-            {% endbuttons %}
+            <h4>{{ timeline_to_be_deleted.title.text.text }}</h4>
         </div>
+        <div class="row mt-2">
+            <div class="col-md-1">
+                Start date:
+            </div>
+            <div class="col-md-2">
+            {{ timeline_to_be_deleted.title.start_date }}
+            </div>
+            <div class="col-md-1">
+                End date:
+            </div>
+            <div class="col-md-2">
+                {{ timeline_to_be_deleted.title.end_date }}
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <h4>Related events</h4>
+            {% if timeline_to_be_deleted.events.all %}
+                {% for event in timeline_to_be_deleted.events.all %}
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ event.media.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.text.headline}}</h5>
+                            <p class="card-text">{{ event.text.text}}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div col="row">
+                    No events are related to this timeline
+                </div>
+            {% endif %}
+        </div>
+
+            <h4>Related Eras</h4>
+            <div class="row">
+                {% if timeline_to_be_deleted.era.all %}
+
+                {% else %}
+
+                        No eras are related to this timeline
+
+                {% endif %}
+            </div>
     </form>
 
 {% endblock %}

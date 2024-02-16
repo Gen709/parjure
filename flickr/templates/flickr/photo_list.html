@@ -10,11 +10,23 @@
     <div class="container-fluid">
         <div class="row">
             <div class="row">
-                <h1>Timeline detail</h1>
+                <h1>Photos list</h1>
             </div>
             
             <div class="row">
-
+                {% for photo in photo_list%}
+                    <div class="card mt-3 mx-4" style="width: 18rem;">
+                        <img class="card-img-top" src="#" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{photo.title}}</h5>
+                            <p>{{photo.date_taken}}</p>
+                            <p class="card-text">{{photo.desc}}</p>
+                            <p class="card-text">{{photo.link_to_original_photo}}</p>
+<!--                            <a href="{% url 'flicker-update-view' photo.pk %}" class="btn btn-primary">Update</a>-->
+                            <a href="{% url 'flicker-update-function-view' photo.id %}" class="btn btn-primary">Update</a>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'photos/css/album.css' %}">
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+<!--    <div class="container fixed-top" style="height:100px; background-color:red;">-->
+
+<!--    </div>-->
+    <div class="container" style="height:100px">
+        <div class="row mt-2">
+            <div class="row">
+                <h1>Photos Album Create / Update</h1>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row mt-5 mb-3">
+                    {% bootstrap_form form %}
+                </div>
+                <div class="row mb-3">
+                    <label class="form-label">Photos</label>
+                        {% comment %} <div id="id_photos"> {% endcomment %}
+                        <div class="scrolling-window">
+
+                            {% for photo in photos %}
+                                {% if forloop.counter0|divisibleby:6 %}
+                                    <div class="row mt-3">
+                                {% endif %}
+                                <div class="col-2">
+                                    {% comment %} <div class="card mt-5" style="width: 15rem;"> {% endcomment %}
+                                    <div class="card h-100">
+                                        <img src="{{photo.source}}" class="card-img-top">
+                                        <div class="card-header">
+                                            <div class="row">
+                                                {{photo.title}}
+                                            </div>
+                                            <div class="row">
+                                                <button type="button" class="btn btn-success btn-sm"> Edit picture details </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text text-primary"> date : {{photo.date_taken}}</p>
+                                            <p class="card-text text-muted">{{photo.headline}}</p>
+                                            <div class="card-header">
+                                                Appears in:
+                                            </div>
+                                            {% if photo.album_set.all %}
+                                                <ul class="list-group list-group-flush">
+                                                {% for album in photo.album_set.all %}
+                                                    <li class="list-group-item">
+                                                        {{ album }}
+                                                    </li>
+                                                {% endfor %}
+                                                </ul>
+                                            {% endif %}
+                                        </div>
+                                        <div class="card-footer">
+                                            <div>
+                                                <a href="{{photo.link_to_original_photo}}" class="btn btn-primary">View</a>
+                                            </div>
+                                            <label for="id_photos_{{ forloop.counter0 }}">
+                                                <input id="id_photos_{{ forloop.counter0 }}" type="checkbox" name="photos" value="{{photo.id}}" > Select
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if forloop.counter|divisibleby:6 or forloop.last %}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% comment %} </div> {% endcomment %}
+                </div>
+
+                <div class="button-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Save">
+<!--                    <input type="submit" class="btn btn-primary" value="Update">-->
+                    <a href="{% url 'album-list-view' %}" class="btn btn-danger"> Cancel </a>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

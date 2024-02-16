@@ -22,6 +22,11 @@ a:active {
   text-decoration: none;
 }
 
-.true-statements {
-    color: #b3cccc;
+
+.title {
+    background-color: white;
+}
+
+.requete-body{
+    padding-top: 0px;
 }

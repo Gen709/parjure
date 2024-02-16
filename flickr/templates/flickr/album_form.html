@@ -7,26 +7,27 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="row">
+<!--    <div class="container fixed-top" style="height:100px; background-color:red;">-->
+
+<!--    </div>-->
+    <div class="container" style="height:100px">
+        <div class="row mt-2">
             <div class="row">
-                <h1>Photos list</h1>
+                <h1>Photos Album Create / Update</h1>
             </div>
-            
-            <div class="row">
-                {% for photo in photo_list%}
-                    <div class="card mt-3 mx-2" style="width: 18rem;">
-                        <img class="card-img-top" src="#" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">{{photo.title}}</h5>
-                            <p>{{photo.date_taken}}</p>
-                            <p class="card-text">{{photo.desc}}</p>
-<!--                            <a href="{% url 'flicker-update-view' photo.id %}" class="btn btn-primary">Update</a>-->
-                            <a href="{% url 'flicker-update-function-view' photo.id %}" class="btn btn-primary">Update</a>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row mt-5 mb-3">
+                    {% bootstrap_form form %}
+                </div>
+                <div class="button-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Save">
+<!--                    <input type="submit" class="btn btn-primary" value="Update">-->
+                    <a href="{% url 'album-list-view' %}" class="btn btn-danger"> Cancel </a>
+
+                </div>
+            </form>
+
         </div>
     </div>
 {% endblock %}

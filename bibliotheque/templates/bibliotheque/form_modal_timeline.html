@@ -1,43 +1,49 @@
 <!-- Modal -->
-<div class="modal fade" id="addExplainationeModal" tabindex="-1" aria-labelledby="addExplainationeModalLabel" aria-hidden="true">
+<div class="modal fade" id="addTimelineModal" tabindex="-1" aria-labelledby="addTimelineModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             <div class="modal-header">
-                <h5 class="modal-title" id="addExplainationeModalLabel">Insert as a child</h5>
+                <h5 class="modal-title" id="addTimelineModalLabel">Insert Timeline as a child</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
-                    <dic class="row">
+            <!--form-->
+            <form method="post" action="{% url 'bibliotheque-timeline-add_' %}" name="formAddTimelineModal">
+            <!--  form          -->
+                {% csrf_token %}
+                <div class="modal-body">
+
+                    <div class="row">
+                        <input type="hidden" name="timeline_related_item" value="#">
+
+                        <div id="timeline-related-item"></div>
+
+                    </div>
+
+                    <div class="row mt-4">
                         <div class="form-group">
-                            <label for="select-allegation"> Allégation à commenter</label>
-                            <select class="form-control" id="select-allegation">
-                                {% for dic in document.get_tree %}
-                                    {% if dic.document_item_obj.is_true == 0 %}
-                                    <option value="{{ dic.document_item_obj.id }}">
-                                        {{ dic.document_item_obj.item }}
+                            <select class="form-control" name="timeline_id" id="select-timeline">
+                                {% for timeline in timelines %}
+                                    <option value="{{ timeline.id }}">
+                                        {{ timeline.title.text.headline }}
                                     </option>
-                                    {% endif %}
+
                                 {%endfor%}
                             </select>
                         </div>
-                    </dic>
-                    <div class="row mt-4">
-                        <div class="form-group">
-                            <textarea class="form-control">
-
-                            </textarea>
-                        </div>
                     </div>
 
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Soumettre</button>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-edit-text-modal" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
+
+            </form>
 
 
-            </div>
+
         </div>
     </div>
 </div>

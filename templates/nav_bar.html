@@ -1,93 +1,80 @@
 {% load static %}
 <!-- https://learndjango.com/tutorials/django-login-and-logout-tutorial -->
 
-{% if user.is_authenticated %}
+
 
 {% block js %}
-	<script src="{% static 'page/js/search_student_name.js' %}"> </script>
+
 {% endblock %}
 
 <div class="row">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
-		
-		
-		    <a class="navbar-brand" href="#">DJ</a>
+
+		    <a class="navbar-brand" href="#">Parjure Élise Ayoub</a>
+
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			
-			
+
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' pk=user.pk %}">Mon profile</a>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="requeteDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Requete
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="requeteDropdown">
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'home' %}">Edit</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'bibliotheque-hierarchy' %}">Integrity view</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'hierarchy' %}">Presentation</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'add-as-child' %}">add as child test</a></li>
+						</ul>
 					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'comite-clinique-list' %}">Comité Clinique</a>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="timeLineJSDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Timeline JS
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="timeLineJSDropdown">
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'timelinejs-list' %}">Liste</a></li>
+							<li class="nav-item"><a class="dropdown-item" href="{% url 'timelinejs-event-add' %}">Create</a></li>
+						</ul>
 					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'evaluation-list' %}">Évaluation</a>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="FlickrDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Flickr
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="{% url 'flicker-list-view' %}">All pictures</a></li>
+							<li><a class="dropdown-item" href="#">Another action</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="{% url 'flikr-list' %}">Photo list</a></li>
+						</ul>
 					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'problematique-list' %}">Problématiques</a>
+
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Flickr Albums
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="{% url 'album-create-view-2' %}">Create</a></li>
+							<li><a class="dropdown-item" href="{% url 'album-list-view' %}">List</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
 					</li>
-					
+
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'coursdete-list' %}">Cours d'été</a>
-					</li>
-					
-	        		<li class="nav-item">
 						<a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
 					</li>
-					
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'logout' %}">Logout</a>
-					</li>
-					
+
 				</ul>
-				<form class="d-flex">
-					
-					<input class="form-control me-2" type="search" placeholder="Recherche étudiant" aria-label="Search" id="studentsearchbox">
-					
-				</form>
-				
-				
 		    </div>
 		    
 		   
 		</div>
 	</nav>
 </div>
-<div class="row">
-	<div name="suggestion_box" class="suggestion-box mb-3" id="suggestion-box"></div>
-</div>
-{% else %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<div class="container-fluid">
-	
-	    <a class="navbar-brand" href="#">DJ</a>
-	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-								
-				<li class="nav-item">
-					<a class="nav-link" href="{% url 'login' %}">Login</a>
-				</li>
-				
-			</ul>			
-	    </div>
-	    
-	</div>
-</nav>
-
-{% endif %}

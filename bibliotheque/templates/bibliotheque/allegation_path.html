@@ -1,0 +1,17 @@
+<div class="row">
+    <ul>
+        {% for element in data %}
+            {% if element.depth == element.previous_depth %}
+                <li>element.itme</li>
+            {% elif element.depth > element.previous_depth %}
+                <ul>
+                    <li>element.itme</li>
+            {% elif element.depth < element.previous_depth %}
+                </ul>
+                    <li>element.itme</li>
+
+            {% endif %}
+
+        {% endfor %}
+    {{ending_str}}
+</div>

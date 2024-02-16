@@ -1,6 +1,4 @@
 from django.db import models
-
-
 # Create your models here.
 
 class Flickr(models.Model):
@@ -12,6 +10,13 @@ class Flickr(models.Model):
     link_to_original_photo = models.URLField()
     link_to_photo_thumbnail = models.URLField()
 
+    class Meta:
+        ordering = ['date_taken_obj',]
+
+
+    def __str__(self):
+        return self.date_taken +" - " + self.title
+    
     @property
     def date_dict(self):
         return {'year': self.date_taken_obj.year,
@@ -21,3 +26,16 @@ class Flickr(models.Model):
                 'minute': self.date_taken_obj.minute,
                 'second': self.date_taken_obj.second
                 }
+
+
+class Album(models.Model):
+    name = models.CharField(max_length=250, unique=True)
+    desc = models.TextField(blank=True, null=True)
+    photos = models.ManyToManyField(Flickr, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+# class TimeLineJSFlickr(models.Model):

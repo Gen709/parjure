@@ -6,23 +6,23 @@
 
 <div class="row border rounded px-3 mt-5 pt-3">
 
-    {% for item in parent.get_path %}
+    {% for item in sibling.get_path %}
         <ul >
             <li>{{ item.item|safe }}</li>
     {% endfor %}
-    {% for item in parent.get_path %}
+    {% for item in sibling.get_path %}
         </ul>
     {% endfor %}
 </div>
-<form method="post" action="{% url 'bibliotheque-allegation-add' parent.id %}">
+<form method="post" action="{% url 'bibliotheque-allegation-add' sibling.id %}">
     {% csrf_token %}
 
     <div class="row border rounded mt-4">
-        {% bootstrap_form item_form %}
+        {% bootstrap_form form %}
     </div>
-    <div class="row border rounded mt-4">
-        {% bootstrap_form text_form %}
-    </div>
+
 </form>
+{{ form.errors }}
+{{ form.non_field_errors }}
 
 {% endblock %}

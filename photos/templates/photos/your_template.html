@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+    <script src='https://code.jquery.com/jquery-3.6.4.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'multiMonthYear',
+          events: function(info, successCallback, failureCallback) {
+            // Make an AJAX call to fetch events from the server
+            $.ajax({
+              url: '/photos/yearly-calendar-ajax/',  // Update the URL to match your Django view endpoint
+              type: 'GET',
+              dataType: 'json',
+              success: function(response) {
+                // Call successCallback with the fetched events
+                successCallback(response.events);
+                console.log(response.events)
+              },
+              error: function(error) {
+                // Call failureCallback if there's an error
+                failureCallback(error);
+              }
+            });
+          }
+        });
+        calendar.render();
+      });
+
+    </script>
+  </head>
+  <body>
+    <div id='calendar'></div>
+  </body>
+</html>

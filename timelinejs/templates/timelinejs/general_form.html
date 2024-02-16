@@ -7,17 +7,26 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Era</h1>
-    <form action="{% url 'timelinejs-era-add' %}" method="post" class="form">
+    <h1>{{form_step_name}}</h1>
+    {% if parent_obj %}
+
+    {% else %}
+
+    {% endif %}
+    {% if argument %}
+        <form action="{% url form_action argument %}" method="post" class="form">
+    {% else %}
+        <form action="{% url form_action %}" method="post" class="form">
+    {% endif %}
         {% csrf_token %}
         <div class="row border">
-            {% bootstrap_form era_form %}
+            {% bootstrap_form form %}
         </div>
         <div class="row mt-3">
             {% buttons %}
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" class="btn btn-primary" name="add_text">add text</button>
-
+                {% for step in next_step_list %}
+                    <button type="submit" class="btn btn-primary" name="{{step}}">{{step}}</button>
+                {% endfor %}
             {% endbuttons %}
         </div>
     </form>

@@ -1,0 +1,55 @@
+{% load bootstrap5 %}
+
+<!-- Modal -->
+
+<div class="modal fade" id="addAllegationModal" tabindex="-1" aria-labelledby="addAllegationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAllegationModalLabel"> Insert Allegation as sibling </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Anuler"></button>
+            </div>
+
+            <form method="post" action="{% url 'bibliotheque-allegation-add' %}">
+
+                {% csrf_token %}
+<!--                <input type="hidden" name="parent_id" value="#">-->
+                <div class="modal-body">
+                    <div class="row">
+                        {% for item in sibling.get_path %}
+                            {{item}}
+                        {% endfor %}
+                    </div>
+                     <div class="row border rounded mt-4">
+                        <input type="hidden" name="parent" value="#" id="id_parent">
+                        <input type="hidden" name="lft" value="#" id="id_lft">
+                        <input type="hidden" name="rgt" value="#" id="id_rgt">
+
+                        <div class="mb-3"><label class="form-label" for="id_item">Allégation</label>
+                            <textarea name="item" cols="40" rows="4" class="form-control" placeholder="Allégation" title="" required id="id_item"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="id_is_true">Is true</label>
+                            <select name="is_true" class="form-select" title="" id="id_is_true">
+                                <option value="true" selected>Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
