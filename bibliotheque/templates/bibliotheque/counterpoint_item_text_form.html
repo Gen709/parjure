@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block content %}
+
+<form method="post" action="{% url 'bibliotheque-section-add-2' parent_id %}">
+    {% csrf_token %}
+
+    <div class="row border rounded mt-4">
+        {% bootstrap_form item_form %}
+    </div>
+    <div class="row border rounded mt-4">
+        {% bootstrap_form text_form %}
+    </div>
+</form>
+
+{% endblock %}

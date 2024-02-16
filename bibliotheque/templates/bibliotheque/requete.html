@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!--<link rel="stylesheet" href="mystyle.css">-->
+
+{% block extrahead %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="{% static 'bibliotheque/css/requete_hier_2.css' %}" />
+
+{% endblock %}
+
+
+{% block js %}
+
+<script src="https://cdn.tiny.cloud/1/3uxow28ssthmenpgxa54gwbtdj7mdpjqzi8sprt26xpv0dcz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="{% static 'bibliotheque/js/hoover_menu.js' %}"> </script>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-5">
+            <!-- colone de gauche  -->
+            <div class="col-md-2">
+
+                <div class="row h-100">
+                </div>
+
+            </div>
+            <!-- contenu -->
+            <div class="col">
+                <div class="row px-3 mt-5 mb-5 pb-3 title fixed-top">
+                    <h1>{{item.item|capfirst}}</h1>
+                </div>
+
+                <div class="row requete-body mt-5">
+
+                {% for dic in document %}
+
+                    {% if dic.depth != 0 %}
+
+                        {% if dic.previous_depth > dic.depth %}
+
+                            {% if dic.document_item_obj.is_true %}
+                                <div class="row mt-2 true-statements fw-lighter text-black-50">
+                            {% else %}
+                                <div class="row mt-2 false-statements">
+                            {% endif%}
+
+                                {% if dic.depth == 1 and not dic.document_item_obj.is_true %}
+                                    <a href=""> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
+                                {% else %}
+                                    <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
+                                {% endif %}
+
+                                </div>
+
+                        {% elif dic.previous_depth == dic.depth %}
+
+                            {% if dic.document_item_obj.is_true %}
+                                <div class="row mt-2 true-statements fw-lighter text-black-50">
+                            {% else %}
+                                <div class="row mt-2 false-statements">
+                            {% endif%}
+
+                            {% if dic.depth == 1 and dic.document_item_obj.is_true == False %}
+                                <a href=""> {{dic.requete_number}}) {{dict_.requete_number}}{{ dic.document_item_obj.get_item_free_of_html }}</a>
+                            {% else %}
+                                    <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
+                            {% endif %}
+
+                                </div>
+
+                        {% elif dic.previous_depth < dic.depth %}
+
+                                {% if dic.document_item_obj.is_true %}
+                                    <div class="row mt-2 true-statements fw-lighter text-black-50">
+                                {% else %}
+                                    <div class="row mt-2 false-statements">
+                                {% endif%}
+
+                                    {% if dic.depth == 1 and dic.document_item_obj.is_true is False %}
+                                        <a href=""> {{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</a>
+                                    {% else %}
+                                        <p>{{dic.requete_number}}) {{ dic.document_item_obj.get_item_free_of_html }}</p>
+                                    {% endif %}
+
+                                    </div>
+                        {% endif %}
+                    {% endif %}
+                {%endfor%}
+
+            </div>
+            </div>
+            <!-- colone de droite -->
+
+            <div class="col-md-1">
+
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'bibliotheque/form_modal_explication.html' %}
+    {% include 'bibliotheque/form_modal_timeline.html' %}
+    {% include 'bibliotheque/form_modal_edit_text.html' %}
+    {% include 'bibliotheque/form_modal_allegation.html' %}
+
+{% endblock %}

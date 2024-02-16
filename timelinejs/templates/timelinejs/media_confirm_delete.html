@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>Delete slide</h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        <div class="row border">
+            <div class="card mx-2 mt-3" id="{{ object.id }}" style="width: 18rem;">
+
+                <img src="{{ event.media.url }}" class="card-img-top" alt="...">
+                <p class="card-text">Caption: {{ object.media.caption }}</p>
+                <p class="card-text">Credit: {{ object.media.credit }}</p>
+
+
+                <div class="card-body">
+
+                    <h5 class="card-title"> {{ object.text.headline }}</h5>
+                    <p class="card-text"> {{ object.text.text }}</p>
+                    <p class="card-text">From:{{ object.start_date }}</p>
+                    <p class="card-text">To:{{ object.start_date }}</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">Submit</button>
+
+            {% endbuttons %}
+        </div>
+    </form>
+
+{% endblock %}

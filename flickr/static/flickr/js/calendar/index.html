@@ -1,0 +1,338 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery EventControl Plugin Demo</title>
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="eventcontrol.css" rel="stylesheet" type="text/css">
+<style>
+body { background-color:#fafafa;}
+.container { margin-top:150px;}
+.eventcontrol-target {
+    width: 100%;
+    height: 64px;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    background: #eee;
+    margin-top: 10px;
+    padding: 4px;
+    overflow: hidden;
+    text-align: center;
+    }
+
+    .eventcontrol-target h2 {
+    margin: 0;
+    font-size: 48px;
+    }
+    </style>
+</head>
+
+<body>
+<div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="http://www.jqueryscript.net/time-clock/Interactive-Activity-Event-Timeline-Plugin-With-jQuery-EventControl.html">Download This Plugin</a></li>
+<li><a href="http://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+<div class="container">
+<h1>jQuery EventControl Plugin Demo</h1>
+<div class="eventcontrol"></div>
+<div class="eventcontrol-target"></div>
+</div>
+<script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.6/hammer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
+<script src="eventcontrol.js"></script>
+<script>
+$(function() {
+  'use strict';
+
+  $('.eventcontrol').EventControl({
+    hammertime: true,
+    onhover: function(item, element, event, inout) {
+      if (inout == 'out') {
+        $('.eventcontrol-target').html('');
+        element.css('color', element.data('clr'));
+      } else {
+        var x = ['<h2>', moment(item.timestamp).format('YYYY-MM-DD HH:mm:ss'), '</h2>'];
+        $('.eventcontrol-target').html(x.join(''));
+        $('.eventcontrol-target').css('color', element.css('color'));
+        element.data('clr', element.css('color'));
+        element.css('color', '#9b59b6');
+      }
+    },
+    oncreate: function(item, element) {
+      if (item.type == 'error') {
+        element.css('color', '#e74c3c');
+      } else if (item.type == 'warning') {
+        element.css('color', '#e67e22');
+      } else {
+        element.css('color', '#1abc9c');
+      }
+    },
+    onclick: function(item, element, event) {
+      alert(item.timestamp);
+    },
+    data: [
+{
+"timestamp": "2016-03-02T10:57:03+01:00",
+"type": "warning",
+},
+{
+"timestamp": "2016-03-02T11:10:39+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T12:56:32+01:00",
+"type": "",
+},
+{
+"timestamp": "2016-03-02T14:26:37+01:00",
+"type": "",
+},
+{
+"timestamp": "2016-03-02T14:26:52+01:00",
+"type": "error",
+},
+{
+"timestamp": "2016-03-02T14:27:40+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:16+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:17+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:18+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:26+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:32+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:50+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:29:56+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:30:45+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:00+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:02+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:08+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:41+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:46+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:52+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:31:53+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:32:07+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:32:09+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:32:11+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:32:17+01:00",
+  "type": "error",
+},
+{
+"timestamp": "2016-03-02T14:58:32+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T14:58:41+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:00:13+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:00:16+01:00",
+  "type": "warning",
+},
+{
+"timestamp": "2016-03-02T15:00:27+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:00:27+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:15+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:15+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:29+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:29+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:34+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:43+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:07:56+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:08:01+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:08:02+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:48:45+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-02T15:55:29+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-04T10:09:08+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-04T10:12:55+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-09T14:00:36+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-09T16:08:59+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-11T14:36:06+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-11T14:36:06+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-11T14:36:06+01:00",
+  "type": "error",
+},
+{
+"timestamp": "2016-03-11T14:36:06+01:00",
+  "type": "error",
+},
+{
+"timestamp": "2016-03-11T14:36:09+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-13T23:20:52+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-13T23:25:05+01:00",
+  "type": "",
+},
+{
+"timestamp": "2016-03-13T23:25:09+01:00",
+  "type": "",
+},
+{
+"timestamp": "2017-03-13T23:25:09+01:00",
+  "type": "",
+},
+{
+"timestamp": "2019-03-13T23:25:11+01:00",
+  "type": "",
+}
+]
+
+  });
+});
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

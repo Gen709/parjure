@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>Era</h1>
+    <form action="{% url 'timelinejs-era-add' %}" method="post" class="form">
+        {% csrf_token %}
+        <div class="row border">
+            {% bootstrap_form era_form %}
+        </div>
+        <div class="row mt-3">
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" name="add_text">add text</button>
+
+            {% endbuttons %}
+        </div>
+    </form>
+
+{% endblock %}

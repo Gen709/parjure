@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div class="modal fade" id="addExplainationeModal" tabindex="-1" aria-labelledby="addExplainationeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addExplainationeModalLabel">Insert as a child</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Anuler"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="selected-allegation"> Allégation à commenter</label>
+                            <select class="form-control" id="selected-allegation">
+                                {% for dic in document.get_tree %}
+                                    {% if dic.document_item_obj.is_true == 0 %}
+                                    <option name ="related_allegation_id" value="{{ dic.document_item_obj.id }}">
+                                        {{ dic.document_item_obj.item }}
+                                    </option>
+                                    {% endif %}
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <textarea class="inline_textarea_explanation" id="explanation">
+
+                            </textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Soumettre</button>
+            </div>
+        </div>
+    </div>
+</div>

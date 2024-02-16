@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    <h1>Timeline list</h1>
+        {% for timeline in timelinejs_qs %}
+<a href="{{timeline.get_absolute_url}}">{{ timeline.title.start_date }} {{ timeline.title.end_date }} {{ timeline.title.text.headline }}</a>
+        {% endfor %}
+
+
+{% endblock %}

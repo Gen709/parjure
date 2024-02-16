@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+<!--    <div class="container fixed-top" style="height:100px; background-color:red;">-->
+
+<!--    </div>-->
+    <div class="container" style="height:100px">
+        <div class="row mt-2">
+            <div class="row">
+                <h1>Photos Album Create / Update</h1>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row mt-5 mb-3">
+                    {% bootstrap_form form %}
+                </div>
+                <div class="button-group" role="group">
+                    <input type="submit" class="btn btn-primary" value="Save">
+<!--                    <input type="submit" class="btn btn-primary" value="Update">-->
+                    <a href="{% url 'album-list-view' %}" class="btn btn-danger"> Cancel </a>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

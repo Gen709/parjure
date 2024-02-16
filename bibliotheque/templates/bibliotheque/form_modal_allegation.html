@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" id="addExplainationeModal" tabindex="-1" aria-labelledby="addExplainationeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addExplainationeModalLabel">Insert as a child</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Anuler"></button>
+            </div>
+            <form method="post" action="{% url 'bibliotheque-section-add' %}">
+                {% csrf_token %}
+                <input type="hidden" name="parent_id" value="#">
+
+                <div class="modal-body">
+
+                    <div class="row statement-to-comment"></div>
+
+                    <div class="row">
+
+                        <label for="basic-url" class="form-label">Titre du commentaire</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Comment's title" aria-label="Comment's title" name="explanation-title">
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <textarea class="inline_textarea_explanation" name="explanation"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Soumettre</button>
+                </div>
+            </form>
+
+            <form>
+        </div>
+    </div>
+</div>

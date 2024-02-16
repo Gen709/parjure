@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Asap&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Asap", sans-serif;
+}
+
+.rebuttal-body{
+    padding-top: 0px;
+}
+
+section{
+  min-height: 150vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reveal{
+  position: relative;
+  transform: translateY(250px);
+  opacity: 0;
+  transition: 2s all ease;
+}
+
+.reveal.active{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.reveal.fixed {
+    background-color: #c0c0c0;
+    position:fixed;
+    top:150px;
+    width:100%;
+    z-index:100;
+}

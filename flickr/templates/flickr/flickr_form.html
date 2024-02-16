@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="row">
+                <h1>Update</h1>
+            </div>
+
+            <div class="row">
+                <form method="post" action="{% url 'flicker-update-view' photo.id %}">
+                    {% csrf_token %}
+                    {{form.as_table}}
+                    <div class="btn btn-primary"> Update </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
