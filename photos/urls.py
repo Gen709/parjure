@@ -16,5 +16,7 @@ urlpatterns = [
     path('yearly-calendar/', views.yearly_calendar, name='yearly_calendar'),
     path('yearly-calendar-ajax/', views.YearlyCalendarView.as_view(), name='yearly_calendar_ajax'),
 
+    path('archive/photos/', views.photo_list, name='archive_photo_list'),
+
     ]
 

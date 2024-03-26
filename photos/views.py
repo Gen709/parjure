@@ -174,11 +174,15 @@ class YearlyCalendarView(View):
                     'id': str(photo.date_taken),
                     'title': f'{photo.headline[:15]}',
                     'url': photo.get_absolute_url(),
-                    'start': photo.date_taken.strftime('%Y-%m-%d'),
+                    # 'start': photo.date_taken.strftime('%Y-%m-%d'),
+                     'start': photo.date_taken.strftime('%Y-%m-%d %H:%M:%S.%f'), 
                 }
                 
                 if "email absence travail" in [x.name for x in photo.album_set.all()]:
                     event["backgroundColor"] = "red"
+
+                if "Escalade" in [x.name for x in photo.album_set.all()]:
+                    event["backgroundColor"] = "green"
 
                 events.append(event)
 
@@ -194,3 +198,26 @@ def album_detail_view(request, pk):
     photos = album.photos.all()
     context = {'album': album, 'photos': photos}
     return render(request, 'photos/album_detail.html', context)
+
+
+import rawpy
+from PIL import Image
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from .models import PrimaryArchivePhotos
+
+def photo_list(request):
+    photos_list = PrimaryArchivePhotos.objects.all().order_by('date')
+    paginator = Paginator(photos_list, 50)  # Show 10 photos per page
+
+    page = request.GET.get('page')
+    try:
+        photos = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver the first page
+        photos = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g., 9999), deliver the last page
+        photos = paginator.page(paginator.num_pages)
+
+    return render(request, "photos/archive_photo_list.html", {'photos': photos})

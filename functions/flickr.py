@@ -49,20 +49,20 @@ def get_data(photo_album_name: str, api_key: str, my_fliker_user:str, flickr):
     # get the list of pictures contained in the album
     for photo_album_dict in photo_album_dict_list:
         if photo_album_dict["title"]["_content"] == photo_album_name:
-            print("Photo album:", photo_album_name, "found")
+            # print("Photo album:", photo_album_name, "found")
             # photo_album_id = photo_album_dict["pk"]
             photo_album_id = photo_album_dict["id"]
             # print(photo_album_dict["title"]["_content"])
             # print(photo_album_dict)
             photos_dict_list = flickr.photosets.getPhotos(api_key=api_key, photoset_id=photo_album_id,
                                                           user_id=my_fliker_user)
-            print("containing", len(photos_dict_list), "photos")
+            # print("containing", len(photos_dict_list), "photos")
         else:
             print(photo_album_name, "does not exist")
 
     photo_sizes_info_dict = {}
     #     using the list of picture pk get the sizes and the info for each picture
-    print("Acquiring info on ", len(photos_dict_list["photoset"]["photo"]), "photos")
+    # print("Acquiring info on ", len(photos_dict_list["photoset"]["photo"]), "photos")
 
     for photos_dict in photos_dict_list['photoset']['photo']:
         # size_info = flickr.photos.getSizes(api_key=api_key, photo_id=photos_dict["pk"]),

@@ -1,6 +1,10 @@
 from django.db import models
 from django.urls import reverse
 
+class PrimaryArchivePhotos(models.Model):
+    date = models.DateField()
+    path = models.CharField(max_length=255)
+    
 # Create your models here.
 class FlikrPhoto(models.Model):
     label = models.CharField(max_length=255)
@@ -15,6 +19,7 @@ class FlikrPhoto(models.Model):
     text = models.CharField(max_length=500, blank=True, null=True)
     date_taken = models.DateTimeField(blank=True, null=True, default=None)
     serie = models.BigIntegerField(null=True, default=None)
+    is_new = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('flikr-detail', args=[str(self.id)])

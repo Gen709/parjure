@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='utf-8' />
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap5 %}
+
+{% block js %}
+    
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
     <script src='https://code.jquery.com/jquery-3.6.4.min.js'></script>
     <script>
-
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'multiMonthYear',
+          initialView: 'multiMonthYear', 
+          initialDate: "2009-09-06",
           events: function(info, successCallback, failureCallback) {
             // Make an AJAX call to fetch events from the server
             $.ajax({
@@ -28,12 +30,41 @@
             });
           }
         });
+    
         calendar.render();
-      });
+    
+        var currentYear; // Variable to store the current year
+    
+        // Use dateClick event handler to switch to day view
+        calendar.on('dateClick', function(info) {
+          calendar.changeView('timeGridDay', info.dateStr);
+          currentYear = info.date.getFullYear(); // Store the current year
+        });
+    
+        // Add a button to go back to the previous view
+        var backButton = document.createElement('button');
+        backButton.textContent = 'Back';
+        backButton.addEventListener('click', function() {
+          if (currentYear) {
+            calendar.gotoDate(new Date(currentYear, 0, 1)); // Navigate to January 1st of the current year
+            calendar.changeView('multiMonthYear'); // Switch to 'multiMonthYear' view
+          }
+        });
+    
+        calendarEl.appendChild(backButton);
 
+        
+      });
     </script>
-  </head>
-  <body>
-    <div id='calendar'></div>
-  </body>
-</html>
+
+    
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+          <div id='calendar'></div>
+        </div>
+    </div>
+{% endblock %}
